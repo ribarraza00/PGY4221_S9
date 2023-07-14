@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Soccer Fields</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <p>
+    Welcome to the Soccer Fields App. This app will help you find the nearest
+    soccer fields to your location.
+  </p>
+  <hr />
+  <p>
+    To get started, click on the "Locations" tab and then click on the "Get
+    Location" button. This will show you the nearest soccer fields to your
+    location.
+  </p>
+  <ion-icon name="arrow-down-outline"></ion-icon>
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="home">
+        <ion-icon name="home-outline"></ion-icon>
+        <ion-label>Main</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="locations">
+        <ion-icon name="map-outline"></ion-icon>
+        <ion-label>Locations</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="settings">
+        <ion-icon name="settings-outline"></ion-icon>
+        <ion-label>Settings</ion-label>
+      </ion-tab-button>
+      <ion-tab-button tab="logout">
+        <ion-icon name="log-out-outline"></ion-icon>
+        <ion-label>Logout</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>
