@@ -1,0 +1,7 @@
+{
+  "name": "pinilla-courts",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
