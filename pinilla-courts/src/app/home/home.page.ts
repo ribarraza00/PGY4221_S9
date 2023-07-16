@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule} from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -11,18 +12,25 @@ import { FormsModule} from '@angular/forms';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   email!: string;
   password!: string;
 
-  constructor(private router: Router, private toastController: ToastController) {}
+  constructor(private router: Router, private toastController: ToastController, private authService: AuthService) {
+    this.authService.isAuthenticated().then((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.router.navigate(['/main']);
+      }
+    });
+  }
 
-  login() {
+  ngOnInit() {
+    this.authService.logout();
+  }
 
-    console.log(this.email, this.password);
-
-    if (this.email === 'admin@admin.cl' && this.password === 'admin') {
-      this.presentToast('Login correcto', 'success');
+  async login() {
+    if (await this.authService.login(this.email, this.password)) {
+      this.presentToast('Bienvenido', 'success');
       this.router.navigate(['/main']);
       return;
     }

@@ -1,29 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private isAutheticated = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private storageService: StorageService) { }
 
-  async login(){
-    this.isAutheticated = false;
+  async login(email: string, password: string){
+    const user = await this.storageService.get(email);
 
-    //add login logic here
-    
+    if(!user){
+      return false;
+    }
 
-    this.isAutheticated = true;
-    this.router.navigate(['/main']);
+    if(user.password !== password){
+      return false;
+    }
+
+    this.storageService.set('isAuthenticated', true);
+    return true;
   }
 
   async logout(){
-    this.isAutheticated = false;
+    await this.storageService.set('isAuthenticated', false);
   }
 
   async isAuthenticated(){
-    return this.isAutheticated;
+    const isAuthenticated = await this.storageService.get('isAuthenticated');
+    return isAuthenticated;
   }
 }
